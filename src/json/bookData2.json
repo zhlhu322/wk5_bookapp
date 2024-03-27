@@ -1,0 +1,26 @@
+[
+    {
+     "title":"Newest",
+     "data":[
+         {
+             "title":"Yves Saint Laurent",
+             "image":"https://github.com/zhlhu322/wk3_bookapp/blob/master/assets/Yves%20Saint%20Laurent.png?raw=true",
+             "bookname":"Yves Saint Laurent",
+             "author":"Suzy Menkes ",
+             "description":"A spectacular visual journey through 40 years of haute couture from one of the best-known and most trend-setting brands in fashion.",
+             "price":"46.99"
+         },
+         {
+             "title":"The Book of Signs",
+             "image":"https://github.com/zhlhu322/wk3_bookapp/blob/master/assets/The%20Book%20of%20Signs.png?raw=true",
+             "bookname":"The Book of Signs",
+             "author":"Rudolf Koch "
+         },
+         {
+             "title":"Stitched Up",
+             "image":"https://github.com/zhlhu322/wk3_bookapp/blob/master/assets/Stitched%20Up.png?raw=true",
+             "bookname":"Stitched Up",
+             "author":"Tansy E. Hoskins"
+         }]
+     }
+ ]

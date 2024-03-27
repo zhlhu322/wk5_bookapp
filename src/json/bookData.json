@@ -1,0 +1,26 @@
+[
+    {
+        "title": "Popular Books",
+        "data":[ 
+            {
+                "title": "Fashionopolis",
+                "image":"https://github.com/zhlhu322/wk3_bookapp/blob/master/assets/fashionopolis.png?raw=true",
+                "bookname":"Fashionopolis",
+                "author":"Dana Thomas",
+                "description":"A spectacular visual journey through 40 years of haute couture from one of the best-known and most trend-setting brands in fashion."
+            },
+            {
+                "title": "Chanel",
+                "image":"https://github.com/zhlhu322/wk3_bookapp/blob/master/assets/chanel.png?raw=true",
+                "bookname":"Chanel",
+                "author":"Patrick Mauriès"   
+            },
+            {
+                "title": "Calligraphy",
+                "image":"https://raw.githubusercontent.com/zhlhu322/wk3_bookapp/master/assets/Calligraphy.png",
+                "bookname":"Calligraphy",
+                "author":"June & Lucy"   
+            }
+        ]
+    }
+]
