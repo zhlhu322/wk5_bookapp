@@ -1,11 +1,17 @@
 import React from "react";
 import AppLoading from 'expo-app-loading';
 import { useFonts,Roboto_500Medium } from '@expo-google-fonts/roboto';
-import { Box, VStack, Text, Image, Pressable } from "@gluestack-ui/themed";
+import { Box, VStack, Text, Image, Pressable, HStack } from "@gluestack-ui/themed";
 import { useNavigation } from "@react-navigation/native";
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
 
 const BookDetail2 = ({book}) => {
   const { navigate } = useNavigation();
+  const starsArray = Array.from({ length : 5 }, (_, index) => (
+    <MaterialCommunityIcons key={index} name="star"
+     size={18} color={index < book.stars ? "#FFC41F" : "#EDEDEF"} />
+  ));
   let [fontsLoaded] = useFonts({
     Roboto_500Medium
   });
@@ -13,7 +19,7 @@ const BookDetail2 = ({book}) => {
     return<AppLoading/>;
   }else{
     return (
-      <Box width={140} height={256}
+      <Box width={140} height={400}
           elevation ={1} marginRight={16}
       >
         <Pressable onPress={() => navigate('Detail', book)}>
@@ -23,9 +29,12 @@ const BookDetail2 = ({book}) => {
             alt="BookImage"
           />
         </Pressable>
+        <HStack mt={16} >
+        {starsArray}
+        </HStack>
         <VStack height={56} justifyContent="space-evenly">
             <Text fontSize={16} fontFamily="Roboto_500Medium" color="black">{book.bookname}</Text>
-            <Text fontSize={12} fontFamily="Roboto_500Medium" color="black">{book.author}</Text>
+            <Text fontSize={12} fontFamily="Roboto_500Medium" color="black" opacity={0.5}>{book.author}</Text>
         </VStack>
       </Box>
     );

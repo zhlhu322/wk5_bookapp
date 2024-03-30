@@ -1,21 +1,18 @@
 import React from "react";
-import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
+import { SafeAreaView, SafeAreaProvider, View } from 'react-native-safe-area-context';
 import Navigation from "./src/navigation";
-import { GluestackUIProvider } from '@gluestack-ui/themed';
+import { GluestackUIProvider, ScrollView } from '@gluestack-ui/themed';
 import { config } from '@gluestack-ui/config';
-import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import HomeScreen from "./src/screens/HomeScreen";
-import WishlistScreen from './src/screens/WishlistScreen';
 
-const Tab = createBottomTabNavigator();
+
+//const Tab = createBottomTabNavigator();
 
 const App = () => {
   return (
-
-    <SafeAreaProvider >
+    <SafeAreaProvider>
       <GluestackUIProvider config={config}>
-        <Navigation />
+          <Navigation/>
       </GluestackUIProvider>
     </SafeAreaProvider>
 

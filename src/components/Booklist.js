@@ -13,7 +13,7 @@ const Booklist = () => {
       Roboto_500Medium
     });
     if(!fontsLoaded){
-      return<AppLoading/>;
+      return <AppLoading/> ; 
     }else{
       return (
         <Box marginLeft={16} marginBottom={16}>

@@ -1,4 +1,5 @@
-import React from 'react';
+import React,{useState} from 'react';
+import { TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -8,6 +9,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import HomeScreen from '../screens/HomeScreen';
 import DetailScreen from '../screens/DetailScreen';
 import WishlistScreen from '../screens/WishlistScreen';
+import { ScrollView } from '@gluestack-ui/themed';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -15,7 +17,7 @@ const Tab = createBottomTabNavigator();
 const Navigation = () => {
   return (
     <NavigationContainer>
-      <MyTabs />
+        <MyTabs/>
     </NavigationContainer>
   );
 }
@@ -84,19 +86,41 @@ const HomeStack = () => {
         name="Home"
         component={HomeScreen}
         options={{
-          //headerShown: false
-          title:''
+          title:'',
+          headerRight:()=>( <MaterialCommunityIcons name="magnify" size={24}/> ),
+          headerShadowVisible:false
         }}
       />
       <Stack.Screen
         name="Detail"
         component={DetailScreen}
         options={{
-          headerTintColor: '#000'
+          headerTintColor: '#000',
+          headerTitle:'',
+          headerRight:()=>( <HeaderIcon/> ),
+          headerLeft: ()=>( <MaterialCommunityIcons name="chevron-left" size={30}/> )
         }}
       />
     </Stack.Navigator>
   );
 }
+
+const HeaderIcon = () => {
+  const [iconName, setIconName] = useState('bookmark-outline'); 
+  const [iconColor, setIconColor] = useState('black');
+  
+  const handleIconPress = () => {
+    const newIconName = iconName === 'bookmark-outline' ? 'bookmark' : 'bookmark-outline';
+    const newIconColor = iconColor === 'black' ? '#6200EE' : 'black';
+    setIconName(newIconName);
+    setIconColor(newIconColor);
+  };
+
+  return (
+    <TouchableOpacity onPress={handleIconPress}>
+      <MaterialCommunityIcons name={iconName} size={24} color={iconColor} />
+    </TouchableOpacity>
+  );
+};
 
 export default Navigation;

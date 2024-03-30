@@ -6,7 +6,7 @@ import { Box } from "@gluestack-ui/themed"
 
 const HomeScreen = () => {
   return (
-    <Box>
+    <Box style={{backgroundColor:"#FFF"}}>
       <BookList/>
       <BookList2/>
     </Box>
