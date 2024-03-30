@@ -3,6 +3,8 @@ import { TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
+import { Divider, Image, Input, HStack, Text } from '@gluestack-ui/themed';
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -13,14 +15,87 @@ import { ScrollView } from '@gluestack-ui/themed';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
 
 const Navigation = () => {
   return (
     <NavigationContainer>
-        <MyTabs/>
+        <MyDrawer/>
     </NavigationContainer>
   );
 }
+
+const CustomDrawerContent = (props) => {
+  return (
+    <DrawerContentScrollView {...props}
+      contentContainerStyle={{ paddingTop: 0 }}
+    >
+      <Image
+        h={48}
+        w={48}
+        source={"https://github.com/zhlhu322/wk3_bookapp/blob/master/assets/Yves%20Saint%20Laurent.png?raw=true"}
+        alt='personalImage'
+        mt={100} ml={16} mb={16}
+        borderColor='#FFF'
+        borderRadius={999}
+      />
+      <Text fontSize={24} fontWeight='500' ml={16}>May</Text>
+      <Divider my="$2"/>
+      <DrawerItemList {...props} />
+    </DrawerContentScrollView>
+  );
+}
+
+const MyDrawer = () =>{
+  return (
+    <Drawer.Navigator 
+      initialRouteName="HomeStack"
+      screenOptions={{
+        drawerActiveBackgroundColor: "#FFFFFF",
+        drawerStyle:{ width:300},
+        drawerLabelStyle:{ fontSize:14 }
+      }}
+      drawerContent={props => <CustomDrawerContent {...props} />}
+    >
+      <Drawer.Screen 
+        name="HomeStack" 
+        component={MyTabs} 
+        options={{
+          headerShown: true,
+          drawerLabel: "Home",
+          drawerIcon: ({ color }) => (
+            <MaterialCommunityIcons name="home" color={color} size={20} />
+          ),
+          headerShown:false
+        }}
+      />
+      <Drawer.Screen 
+        name="Account" 
+        component={WishlistScreen} 
+        options={{
+          headerShown: true,
+          drawerLabel: "Account",
+          drawerIcon: ({ color }) => (
+            <MaterialCommunityIcons name="account-circle" color={color} size={20} />
+          ),
+          
+        }}
+      />
+      <Drawer.Screen 
+        name="Setting" 
+        component={WishlistScreen} 
+        options={{
+          headerShown: true,
+          drawerLabel: "Setting",
+          drawerIcon: ({ color }) => (
+            <MaterialCommunityIcons name="cog" color={color} size={20} />
+          ),
+        }}
+      />
+    </Drawer.Navigator>
+  );
+}
+
 
 const MyTabs = () => {
   return (
@@ -40,7 +115,7 @@ const MyTabs = () => {
           headerShown: false,
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="home" color={color} size={26} />
-          )
+          ),
         }}
       />
       <Tab.Screen
@@ -79,7 +154,7 @@ const MyTabs = () => {
   );
 }
 
-const HomeStack = () => {
+const HomeStack = ({navigation}) => {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -88,7 +163,13 @@ const HomeStack = () => {
         options={{
           title:'',
           headerRight:()=>( <MaterialCommunityIcons name="magnify" size={24}/> ),
-          headerShadowVisible:false
+          headerShadowVisible:false,
+          headerLeft: () =>(
+            <MaterialCommunityIcons
+              name="menu" size={24} onPress={ () => navigation.openDrawer()}
+              style={{marginRight:20}}
+            />
+          ),
         }}
       />
       <Stack.Screen
@@ -102,6 +183,7 @@ const HomeStack = () => {
         }}
       />
     </Stack.Navigator>
+    
   );
 }
 
