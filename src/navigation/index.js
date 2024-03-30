@@ -5,13 +5,15 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import { Divider, Image, Input, HStack, Text } from '@gluestack-ui/themed';
+import { useNavigation } from '@react-navigation/native';
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import HomeScreen from '../screens/HomeScreen';
 import DetailScreen from '../screens/DetailScreen';
 import WishlistScreen from '../screens/WishlistScreen';
-import { ScrollView } from '@gluestack-ui/themed';
+import DevelopedScreen from'../screens/DevelopedScreen';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -27,22 +29,24 @@ const Navigation = () => {
 
 const CustomDrawerContent = (props) => {
   return (
-    <DrawerContentScrollView {...props}
+    <SafeAreaView flex={1}>
+      <DrawerContentScrollView {...props}
       contentContainerStyle={{ paddingTop: 0 }}
     >
       <Image
-        h={48}
-        w={48}
-        source={"https://github.com/zhlhu322/wk3_bookapp/blob/master/assets/Yves%20Saint%20Laurent.png?raw=true"}
+        h={48} w={48}
+        source={"https://github.com/zhlhu322/wk5_bookapp/blob/master/assets/personal.png?raw=true"}
         alt='personalImage'
-        mt={100} ml={16} mb={16}
+        mt={40} ml={16} mb={16}
         borderColor='#FFF'
         borderRadius={999}
       />
-      <Text fontSize={24} fontWeight='500' ml={16}>May</Text>
-      <Divider my="$2"/>
+      <Text fontSize={24} fontWeight='500' ml={16} mb={16} color='black'>May</Text>
+      <Divider my="$2" opacity={0.5}/>
       <DrawerItemList {...props} />
     </DrawerContentScrollView>
+    </SafeAreaView>
+    
   );
 }
 
@@ -53,7 +57,7 @@ const MyDrawer = () =>{
       screenOptions={{
         drawerActiveBackgroundColor: "#FFFFFF",
         drawerStyle:{ width:300},
-        drawerLabelStyle:{ fontSize:14 }
+        drawerLabelStyle:{ fontSize:14, fontWeight:400 }
       }}
       drawerContent={props => <CustomDrawerContent {...props} />}
     >
@@ -71,7 +75,7 @@ const MyDrawer = () =>{
       />
       <Drawer.Screen 
         name="Account" 
-        component={WishlistScreen} 
+        component={DevelopedScreen} 
         options={{
           headerShown: true,
           drawerLabel: "Account",
@@ -83,7 +87,7 @@ const MyDrawer = () =>{
       />
       <Drawer.Screen 
         name="Setting" 
-        component={WishlistScreen} 
+        component={DevelopedScreen} 
         options={{
           headerShown: true,
           drawerLabel: "Setting",
@@ -137,7 +141,7 @@ const MyTabs = () => {
       />
       <Tab.Screen
         name="My books"
-        component={WishlistScreen}
+        component={DevelopedScreen}
         options={{
           title: "My books",
           headerTitleStyle: {
@@ -162,7 +166,7 @@ const HomeStack = ({navigation}) => {
         component={HomeScreen}
         options={{
           title:'',
-          headerRight:()=>( <MaterialCommunityIcons name="magnify" size={24}/> ),
+          headerRight:()=>( <MaterialCommunityIcons name="magnify" size={24} onPress={()=>alert('You have touched Search')} /> ),
           headerShadowVisible:false,
           headerLeft: () =>(
             <MaterialCommunityIcons
@@ -179,7 +183,7 @@ const HomeStack = ({navigation}) => {
           headerTintColor: '#000',
           headerTitle:'',
           headerRight:()=>( <HeaderIcon/> ),
-          headerLeft: ()=>( <MaterialCommunityIcons name="chevron-left" size={30}/> )
+          headerLeft: ()=>( <CustomBackButton/> )
         }}
       />
     </Stack.Navigator>
@@ -199,8 +203,22 @@ const HeaderIcon = () => {
   };
 
   return (
-    <TouchableOpacity onPress={handleIconPress}>
+    <TouchableOpacity onPress={handleIconPress} >
       <MaterialCommunityIcons name={iconName} size={24} color={iconColor} />
+    </TouchableOpacity>
+  );
+};
+
+const CustomBackButton = () => {
+  const navigation = useNavigation();
+
+  const handleBackPress = () => {
+    navigation.goBack();
+  };
+
+  return (
+    <TouchableOpacity onPress={ handleBackPress }>
+      <MaterialCommunityIcons name="chevron-left" size={30} />
     </TouchableOpacity>
   );
 };
